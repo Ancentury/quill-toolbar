@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Quill Test</title>
+
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="editor">
+        <p>Hello World!</p>
+        <p>Some initial <strong>bold</strong> text.</p>
+        <p></p>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        /*var option = {
+            debug: 'info',
+            placeholder: 'Compose an epic...',
+            module: {
+                'history': {
+                    'delay': 2500,
+                    'userOnly': true
+                },
+                'syntax': true,
+                'toolbar': {
+                    container: '#toolbar',
+                    handler: {
+                        'bold': customBoldHandler
+                    }
+                 }
+            },
+            theme: 'snow'
+        };
+        var Clipboard = Quill.import('modules/clipboard');
+        var Delta = Quill.import('delta');
+
+        class PlainClipboard extends Clipboard {
+            convert(html = null) {
+                if (typeof html === 'string') {
+                    this.container.innerHTML = html;
+                }
+                let text = this.container.innerText;
+                this.container.innerHTML = '';
+                return new Delta().insert(text);
+            }
+        }
+
+        Quill.register('modules/clipboard', PlainClipboard, true);
+
+        var quill = new Quill('#editor', option);
+        quill.deleteText(6, 4);
+        document.getElementById('show').innerHTML = quill.getText();
+        quill.setText('Hello\nWorld\n');
+        document.getElementById('show').innerHTML = quill.getBounds(7, 2).width;
+        quill.setSelection(6, 5);
+        var range = quill.getSelection();
+        if (range) {
+            if (range.length == 0) {
+                console.log('User cursor is at index: ', range.index);
+            } else {
+                var text = quill.getText(range.index, range.length);
+                console.log('User has highlighted: ', text);
+            }
+        } else {
+            console.log('User cursor is not in editor');
+        }
+
+        quill.on('text-change', function(delta, oldDelta, source){
+            if (source == 'api'){
+                console.log('An API call triggered this change.');
+            } else if (source == 'user'){
+                console.log('A user action triggeded this change.');
+            }
+        });
+
+        quill.on('selection-change', function(range, oldRange, source){
+            if (range){
+                if (range.length == 0){
+                    console.log('User cursor is on: ', range.index);
+                } else {
+                    var text = quill.getText(range.index, range.length);
+                    console.log ('User changed selection on: ', range.index, text);
+                }
+            } else {
+                console.log ('cursor is not in the editor');
+            }
+        });
+
+        quill.on('editor-change', function(eventName, args){
+            if (eventName === 'text-change'){
+                console.log(args);
+            } else if (eventName === 'selection-change'){
+                console.log ('change selection' , args.index);
+            }
+        });
+
+        function handler() {
+            console.log('text-change is on');
+        }
+        quill.once('text-change', function(){
+            console.log('first text change');
+        });
+
+        quill.on('text-change', handler);
+
+        quill.off('text-change', handler);
+        var container = quill.addContainer('ql-custum');
+        {
+            ops: [
+                { insert: 'Gandalf', attributes: { bold: true } },
+                { insert: 'the' },
+                { insert: 'Grey', attributes: { color: '#cccccc' } }
+            ]
+        }
+        */
+        var toolbarOption = [
+            ['bold', 'italic'],
+            ['link', 'image'],
+            [{ 'header': [1, 2, 3, 4, false] }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ size: ['small', false, 'large', 'huge'] }],
+            ['blockquote', 'code-block'],
+            [{ 'script': 'sub' }, { 'script': 'super' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+            //    [ 'undo','redo'],
+            ['clean']
+        ];
+
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOption
+            },
+            theme: 'snow'
+        });
+        // var quill = new Quill('#editor', {
+        //     modules: {
+        //         toolbar: '#toolbar'
+        //     },
+        //     theme: 'snow'
+        // });
+        // var toolbar = quill.getModule('toolbar');
+        // toolbar.addHandler('image', showImageUI);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Quill Test</title>
+
+    <!--  Core js and css shared by all examples; do not modify when using this template. -->
+    <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/base.css">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+
+    <!--  js and css for this example. -->
+
+    <link href="css/toolbar.css" rel="stylesheet">
+    <link href="css/menuButton.css" rel="stylesheet">
+
+    <script src="toolbar/js/FormatToolbarItem.js" type="text/javascript"></script>
+    <script src="toolbar/js/FormatToolbar.js" type="text/javascript"></script>
+    <script src="toolbar/js/FontMenuItem.js" type="text/javascript"></script>
+    <script src="toolbar/js/FontMenu.js" type="text/javascript"></script>
+    <script src="toolbar/js/FontMenuButton.js" type="text/javascript"></script>
+    <script src="toolbar/js/SpinButton.js" type="text/javascript"></script>
+
+
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id='toolbar' class="format" role="toolbar" aria-label="Text Formatting">
+
+        <div class="group characteristics">
+            <button class="item bold popup" aria-pressed="false" value="bold" tabindex="0">
+                <span class="fas fa-bold" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 32px; left: -2.5px;">Bold</span>
+            </button>
+            <button class="item italic popup" aria-pressed="false" value="italic" tabindex="-1">
+                <span class="fas fa-italic" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 48px; left: -11.5px;">Italic</span>
+            </button>
+            <button class="item link popup" aria-pressed="false" value="link" tabindex="-1">
+                <span class="fas fa-link" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 48px; left: -11.5px;">Link</span>
+            </button>
+            <button class="item image popup" aria-pressed="false" value="image" tabindex="-1">
+                <span class="fas fa-image" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 48px; left: -11.5px;">Insert Image</span>
+            </button>
+        </div>
+        <div class="group characteristics">
+            <button class="item blockquote popup" aria-pressed="false" value="blockquote" tabindex="0">
+                <span class="fas fa-quote-right" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 48px; left: -11.5px;">Blockquote</span>
+            </button>
+            <button class="item header1 popup" aria-pressed="false" value="h1" tabindex="-1">
+                <span class="fas fa-heading" aria-hidden="true"><sub>1</sub></span>
+                <span class="popup-label" style="width: 60px; left: -46px;">Heading 1</span>
+            </button>
+            <button class="item header2 popup" aria-pressed="false" value="h2" tabindex="-1">
+                <span class="fas fa-heading" aria-hidden="true"><sub>2</sub></span>
+                <span class="popup-label" style="width: 60px; left: -46px;">Heading 2</span>
+            </button>
+            <button class="item divider popup" aria-pressed="false" value="divider" tabindex="-1">
+                <span class="fas fa-minus" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 60px; left: -46px;">Divider</span>
+            </button>
+        </div>
+        <div class="group" role="radiogroup" aria-label="Text Alignment">
+            <button role="radio" class="item align-left popup ql-align-left" aria-checked="true" tabindex="-1">
+                <span class="fas fa-align-left" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 120px; left: -46px;">Text Align Left</span>
+            </button>
+            <button role="radio" class="item align-center popup ql-align-center" aria-checked="false" tabindex="-1">
+                <span class="fas fa-align-center" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 136px; left: -54px;">Text Align Center</span>
+            </button>
+            <button role="radio" class="item align-right popup" aria-checked="false" tabindex="-1">
+                <span class="fas fa-align-right" aria-hidden="true"></span>
+                <span class="popup-label" style="width: 128px; left: -50px;">Text Align Right</span>
+            </button>
+        </div>
+        <!-- <div class="group">
+            <button class="item copy" aria-disabled="true" tabindex="-1">
+                Copy
+            </button>
+            <button class="item paste" aria-disabled="true" tabindex="-1">
+                Paste
+            </button>
+            <button class="item cut" aria-disabled="true" tabindex="-1">
+                Cut
+            </button>
+        </div> -->
+        <div class="menu-popup group">
+            <button aria-haspopup="true" aria-controls="menu1" class="item menu-button" tabindex="-1" aria-label="Font: Sans-serif" style="text-align: left; width: 140px; font-family: sans-serif">
+                SANS-SERIF
+                <span></span>
+            </button>
+            <ul role="menu" id="menu1" aria-label="Font Family" tabindex="-1">
+                <li role="menuitemradio" aria-checked="true" style="font-family: sans-serif" tabindex="-1">Sans-serif</li>
+                <li role="menuitemradio" aria-checked="false" style="font-family: serif" tabindex="-1">Serif</li>
+                <li role="menuitemradio" aria-checked="false" style="font-family: monospace" tabindex="-1">Monospace</li>
+                <li role="menuitemradio" aria-checked="false" style="font-family: fantasy" tabindex="-1">Fantasy</li>
+                <li role="menuitemradio" aria-checked="false" style="font-family: cursive" tabindex="-1">Cursive</li>
+            </ul>
+        </div>
+
+        <div class="group">
+            <div class="item spinbutton" role="spinbutton" tabindex="-1" aria-valuenow="14" aria-valuetext="14 Point" aria-valuemin="8" aria-valuemax="40" aria-label="Font size in points">
+                <span class="value">14 Point</span>
+                <span class="increase">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
+                        <polygon class="increase" fill="#333" points="0,12 11,12 6,2"></polygon>
+                    </svg>
+                </span>
+                <span class="decrease">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12">
+                        <polygon class="decrease" fill="#333" points="0,2 11,2 6,12"></polygon>
+                    </svg>
+                </span>
+            </div>
+        </div>
+
+        <div class="group">
+            <label class="input"><input id="checkbox" class="item nightmode" type="checkbox" tabindex="-1"> Night Mode</label>
+            <!-- <a id="link" class="item link" href="help.html" tabindex="-1">Help</a> -->
+        </div>
+    </div>
+
+    <div id="editor">
+        <p>Hello World!</p>
+        <p>Some initial <strong>bold</strong> text.</p>
+        <p></p>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script>
+        let Inline = Quill.import('blots/inline');
+        let Block = Quill.import('blots/block');
+        let BlockEmbed = Quill.import('blots/block/embed');
+
+        class BoldBlot extends Inline { }
+        BoldBlot.blotName = 'bold';
+        BoldBlot.tagName = 'strong';
+
+        class ItalicBlot extends Inline { }
+        ItalicBlot.blotName = 'italic';
+        ItalicBlot.tagName = 'em';
+
+        class LinkBlot extends Inline {
+            static create(url) {
+                let node = super.create();
+                node.setAttribute('href', url);
+                node.setAttribute('target', '_blank');
+                return node;
+            }
+
+            static formats(node) {
+                return node.getAttribute('href');
+            }
+        }
+        LinkBlot.blotName = 'link';
+        LinkBlot.tagName = 'a';
+
+        class BlockquoteBlot extends Block { }
+        BlockquoteBlot.blotName = 'blockquote';
+        BlockquoteBlot.tagName = 'blockquote';
+
+        class HeaderBlot extends Block {
+            static formats(node) {
+                return HeaderBlot.tagName.indexOf(node.tagName) + 1;
+            }
+        }
+        HeaderBlot.blotName = 'header';
+        HeaderBlot.tagName = ['h1', 'h2'];
+
+        class DividerBlot extends BlockEmbed { }
+        DividerBlot.blotName = 'divider';
+        DividerBlot.tagName = 'hr';
+
+        class ImageBlot extends BlockEmbed {
+            static create(value){
+                let node = super.create();
+                node.setAttribute('alt', value.alt);
+                node.setAttribute('src', value.url);
+                return node;
+            }
+
+            static value(node) {
+                return {
+                    alt: node.getAttribute('alt'),
+                    url: node.getAttribute('src')
+                }
+            }
+        }
+        ImageBlot.blotName = 'image';
+        ImageBlot.tagName = 'img';
+
+        Quill.register(BoldBlot);
+        Quill.register(ItalicBlot);
+        Quill.register(LinkBlot);
+        Quill.register(BlockquoteBlot);
+        Quill.register(HeaderBlot);
+        Quill.register(DividerBlot);
+        Quill.register(ImageBlot);
+
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: '#toolbar'
+            }
+            //theme: 'snow'
+        });
+
+        $('.bold').click(function () {
+            quill.format('bold', true);
+        });
+        $('.italic').click(function () {
+            quill.format('italic', true);
+        });
+        $('.link').click(function () {
+            let value = prompt('Enter link URL');
+            quill.format('link', value);
+        });
+        $('.blockquote').click(function () {
+            quill.format('blockquote', true);
+        });
+        $('.header1').click(function () {
+            quill.format('header', 1)
+        });
+        $('.header2').click(function () {
+            quill.format('header', 2)
+        });
+        $('.divider').click(function () {
+            let range = quill.getSelection(true);
+            quill.insertText(range.index, '\n', Quill.sources.USER);
+            quill.insertEmbed(range.index + 1, 'divider', true, Quill.sources.USER);
+            quill.setSelection(range.index + 2, Quill.sources.SILENT);
+        });
+        $('.image').click(function () {
+            let range = quill.getSelection(true);
+            quill.insertText(range.index, '\n', Quill.sources.USER);
+            quill.insertEmbed(range.index + 1, 'image', {
+                alt: 'Quill Cloud',
+                url: 'https://quilljs.com/0.20/assets/images/cloud.png'
+            }, Quill.sources.USER);
+            quill.setSelection(range.index + 2, Quill.sources.SILENT);            
+        });
+
+        // quill.insertText(0, 'Test', { bold: true });
+        // quill.formatText(0, 4, 'italic', true);
+        
+
+    </script>
+</body>
+
+</html>

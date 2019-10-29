@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Quill Test</title>
+
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id='toolbar'>
+
+    </div>
+
+    <div id="editor">
+        <p>Hello World!</p>
+        <p>Some initial <strong>bold</strong> text.</p>
+        <p></p>
+    </div>
+    <div id="counter"></div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+
+        var toolbarOption = {
+            handlers: {
+                'link': function (value) {
+                    if (value) {
+                        var href = prompt('Enter the URL');
+                        this.quill.format('link', href);
+                    } else {
+                        this.quill.format('link', false);
+                    }
+                }
+            }
+        };
+
+        var bindings = {
+            tab: {
+                key: 9,
+                handler: function () {
+
+                }
+            },
+            custom: {
+                key: 'B',
+                shiftKey: true,
+                handler: function (range, context) {
+
+                }
+            }
+        };
+
+        class Counter {
+            constructor(quill, options) {
+                this.quill = quill;
+                this.options = options;
+                this.container = document.querySelector(options.container);
+
+                quill.on('text-change', this.update.bind(this));
+                this.update();
+            };
+
+            calculate() {
+                let text = this.quill.getText();
+                if (this.options.unit === 'word') {
+                    text = text.trim();
+                    return text.length > 0 ? text.split(/\s+/).length : 0;
+                } else {
+                    return text.length;
+                }
+            };
+            update() {
+                var length = this.calculate();
+                var label = this.options.unit;
+                if (length !== 1) {
+                    label += 's';
+                }
+                this.container.innerText = length + ' ' + label;
+            }
+        }
+        Quill.register('modules/counter', Counter);
+
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOption,
+                keyboard: {
+                    bindings: bindings
+                },
+                counter: {
+                    container: '#counter',
+                    unit: 'word'
+                }
+            },
+            theme: 'snow'
+        });
+        // var quill = new Quill('#editor', {
+        //     modules: {
+        //         toolbar: '#toolbar'
+        //     },
+        //     theme: 'snow'
+        // });
+
+        var counter = quill.getModule('counter');
+        var toolbar = quill.getModule('toolbar');
+        //toolbar.addHandler('image', showImageUI);
+
+        console.log(counter.calculate(), 'words');
+
+        quill.keyboard.addBinding({ key: 'backspace' }, {
+            collapsed: true,
+            format: ['blockquote', 'list'],
+            offset: 0
+        }, function (range, context) {
+            if (context.format.list) {
+                this.quill.format('list', false);
+            } else {
+                this.quill.format('blockquote', false);
+            }
+        });
+
+        //document.getElementById('desc').innerHTML = '<p>hello</p>';
+
+    </script>
+</body>
+
+</html>

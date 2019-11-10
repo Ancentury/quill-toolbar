@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quill Test</title>
+    <style type="text/css">
+        section>div {
+            height: 100px;
+            width: 100px;
+            background-color: red;
+            float: left;
+            margin: 3px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Load Babel -->
+    <!-- v6 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+        const freezing = 32;
+        function checkFreeze(deg){
+            if (deg >= freezing){
+                return deg + " is above freezing.";
+            } else{
+                return deg + " is below freezing.";
+            }
+        }
+        
+        console.log(checkFreeze(39));
+        console.log(checkFreeze(10));
+        console.log(checkFreeze(-2));
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Click on a box</h1>
+    </header>
+    <section></section>
+</body>
+
+</html>
